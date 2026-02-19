@@ -1,0 +1,2 @@
+# salesforce_bulk_field_creation_metadata_generator
+The Salesforce Field XML Generator is designed to speed up bulk field creation by converting a CSV of field definitions into Salesforce CustomField metadata XML. Instead of creating fields one by one, you can generate dozens—or hundreds—of .field-meta.xml files at once and keep them organized by object for streamlined deployment and source control.

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://Vinnellazaro.github.io/sitemap.xml

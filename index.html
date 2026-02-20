@@ -17,11 +17,11 @@
     <div class="container col col-12 col-lg-6 col-xl-7">
       <h1 class="mb-3 fw-semibold lh-1">Generate Salesforce Fields In Bulk <i class="bi bi-cloud-check-fill" style="font-size: 2rem; color: #00a1e0;"></i></h1>
       <p class="lead mb-4">Generate Salesforce fields in bulk—upload a CSV of field definitions and instantly create CustomField XML .field-meta.xml files organized by object, ready for deployment.</p>
-       <div class="card">
+       <div class="card bg-secondary">
           <div class="card-body">
             <h5 class="card-title mb-4">Sample CSV Data <a class="float-end" href="../salesforce_bulk_field_creation_metadata_generator/assets/file/FieldGeneratorTemplate.csv" download="FieldGeneratorTemplate"><button type="button" class="btn btn-success">Download CSV Template <i class="bi bi-cloud-arrow-down"></i></button></a></h5>
-            <div class="table-responsive">
-              <table class="table table-light table-striped">
+            <div class="table-responsive rounded">
+              <table class="table table-dark table-striped" style="font-size:0.7rem;">
                 <thead>
                   <tr>
                     <th scope="col">FieldLabel</th>
@@ -67,7 +67,7 @@
                   <tr>
                     <td>Field_Label_Number</td>
                     <td>cm_fieldName_Number__c</td>
-                    <td>Number</td>
+                    <td>number</td>
                     <td>3</td>
                     <td></td>
                     <td></td>
@@ -78,9 +78,9 @@
                     <td>Sample CSV for Number</td>
                   </tr>
                   <tr>
-                    <td>Field_Label</td>
-                    <td>cm_fieldName__c</td>
-                    <td>Currency</td>
+                    <td>Field_Label_Currency</td>
+                    <td>cm_fieldName_Currency__c</td>
+                    <td>currency</td>
                     <td></td>
                     <td>0</td>
                     <td>3</td>
@@ -91,9 +91,9 @@
                     <td>Sample CSV for Currency</td>
                   </tr>
                   <tr>
-                    <td>Field_Label</td>
-                    <td>cm_fieldName__c</td>
-                    <td>Percent</td>
+                    <td>Field_Label_Percent</td>
+                    <td>cm_fieldName_Percent__c</td>
+                    <td>percent</td>
                     <td></td>
                     <td>0</td>
                     <td>3</td>
@@ -104,17 +104,30 @@
                     <td>Sample CSV for Percent</td>
                   </tr>
                   <tr>
-                    <td>Field_Label</td>
-                    <td>cm_fieldName__c</td>
-                    <td>Percent</td>
+                    <td>Field_Label_Checkbox</td>
+                    <td>cm_fieldName_Checkbox__c</td>
+                    <td>checkbox</td>
                     <td></td>
-                    <td>0</td>
-                    <td>3</td>
+                    <td></td>
+                    <td></td>
                     <td>ObjectName__c</td>
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td>Sample CSV for Percent</td>
+                    <td>Sample CSV for Checkbox</td>
+                  </tr>
+                  <tr>
+                    <td>Field_Label_Picklist</td>
+                    <td>cm_fieldName_Picklist__c</td>
+                    <td>picklist</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>ObjectName__c</td>
+                    <td>picklistValue1,picklistValue2,picklistValue3</td>
+                    <td></td>
+                    <td></td>
+                    <td>Sample CSV for Checkbox</td>
                   </tr>
                 </tbody>
               </table>

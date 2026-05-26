@@ -191,7 +191,7 @@ body {
 @media (min-width: 992px) {
   .sticky-step {
     position: sticky;
-    top: 70px;
+    /* top: 70px; */
   }
 }
 

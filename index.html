@@ -1,6 +1,15 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 <head>
+  <!-- Apply saved theme before paint to prevent flash -->
+  <script>
+    (function() {
+      try {
+        var saved = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-bs-theme', saved);
+      } catch (e) {}
+    })();
+  </script>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -80,235 +89,355 @@
   <!-- Accessibility: skip link -->
   <a class="visually-hidden-focusable" href="#main">Skip to main content</a>
 
-  <main id="main" class="row m-0 body bg-dark text-light p-5">
-    <div class="container col col-12 col-lg-6 col-xl-7">
-      <h1 class="mb-3 fw-semibold lh-1">
+  <!-- Top bar -->
+  <nav class="topbar d-flex justify-content-between align-items-center px-4 py-2">
+    <div class="d-flex align-items-center gap-2">
+      <i class="bi bi-cloud-check-fill" aria-hidden="true" style="color:#00a1e0; font-size:1.5rem;"></i>
+      <span class="fw-semibold">SF Bulk Field Generator</span>
+    </div>
+    <div class="d-flex align-items-center gap-3">
+      <button type="button" class="theme-toggle-btn btn btn-sm btn-outline-secondary d-inline-flex align-items-center gap-1" aria-label="Toggle dark / light mode" title="Toggle dark / light mode">
+        <i class="bi bi-moon-stars-fill theme-icon-dark" aria-hidden="true"></i>
+        <i class="bi bi-sun-fill theme-icon-light" aria-hidden="true"></i>
+        <span class="theme-toggle-label">
+          <span class="theme-icon-dark">Dark |</span>
+          <span class="theme-icon-light">Light</span>
+        </span>
+      </button>
+      <small class="text-secondary">Version 1.2</small>
+    </div>
+  </nav>
+
+  <main id="main" class="container py-5">
+
+    <!-- Hero -->
+    <section class="text-center mb-5">
+      <h1 class="display-5 fw-semibold lh-1 mb-3">
         Generate Salesforce Fields In Bulk
-        <i class="bi bi-cloud-check-fill" aria-hidden="true" style="font-size: 2rem; color: #00a1e0;"></i>
+        <i class="bi bi-cloud-check-fill" aria-hidden="true" style="color:#00a1e0;"></i>
       </h1>
-
-      <p class="lead mb-4">
-        Generate Salesforce fields in bulk—upload a CSV of field definitions and instantly create CustomField XML
-        .field-meta.xml files organized by object, ready for deployment.
+      <p class="lead text-secondary mx-auto" style="max-width: 720px;">
+        Upload a CSV of field definitions and instantly create CustomField
+        <code>.field-meta.xml</code> files organized by object — ready for Salesforce CLI deployment.
       </p>
+      <div class="d-flex justify-content-center gap-2 flex-wrap mt-3">
+        <span class="badge rounded-pill bg-success"><i class="bi bi-lightning-charge-fill"></i> Fast</span>
+        <span class="badge rounded-pill bg-success"><i class="bi bi-shield-lock-fill"></i> 100% Browser-based</span>
+        <span class="badge rounded-pill bg-success"><i class="bi bi-cash-coin"></i> Free</span>
+      </div>
+    </section>
 
-      <div class="card bg-secondary pb-2">
-        <div class="card-body">
-          <h2 class="card-title mb-4 h5">
-            <p>Sample CSV Data</p>
-          </h2>
-
-          <div class="table-responsive rounded">
-            <table class="table table-dark table-striped" style="font-size:0.7rem;">
-              <thead>
-                <tr>
-                  <th scope="col">FieldLabel</th>
-                  <th scope="col">FieldName</th>
-                  <th scope="col">Type</th>
-                  <th scope="col">Length</th>
-                  <th scope="col">Precision</th>
-                  <th scope="col">Scale</th>
-                  <th scope="col">ObjectName</th>
-                  <th scope="col">PicklistValues</th>
-                  <th scope="col">ReferenceTo</th>
-                  <th scope="col">ChildRelationshipName</th>
-                  <th scope="col">Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Field_Label_Text</td>
-                  <td>cm_fieldName_Text__c</td>
-                  <td>text</td>
-                  <td>255</td>
-                  <td></td>
-                  <td></td>
-                  <td>ObjectName__c</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td>Sample CSV for Text field</td>
-                </tr>
-                <tr>
-                  <td>Field_Label_TextAreaLong</td>
-                  <td>cm_fieldName_TextAreaLong__c</td>
-                  <td>textarea(long)</td>
-                  <td>3</td>
-                  <td></td>
-                  <td></td>
-                  <td>ObjectName__c</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td>Sample CSV for Text field Long</td>
-                </tr>
-                <tr>
-                  <td>Field_Label_Number</td>
-                  <td>cm_fieldName_Number__c</td>
-                  <td>number</td>
-                  <td>3</td>
-                  <td></td>
-                  <td></td>
-                  <td>ObjectName__c</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td>Sample CSV for Number</td>
-                </tr>
-                <tr>
-                  <td>Field_Label_Currency</td>
-                  <td>cm_fieldName_Currency__c</td>
-                  <td>currency</td>
-                  <td></td>
-                  <td>0</td>
-                  <td>3</td>
-                  <td>ObjectName__c</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td>Sample CSV for Currency</td>
-                </tr>
-                <tr>
-                  <td>Field_Label_Percent</td>
-                  <td>cm_fieldName_Percent__c</td>
-                  <td>percent</td>
-                  <td></td>
-                  <td>0</td>
-                  <td>3</td>
-                  <td>ObjectName__c</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td>Sample CSV for Percent</td>
-                </tr>
-                <tr>
-                  <td>Field_Label_Checkbox</td>
-                  <td>cm_fieldName_Checkbox__c</td>
-                  <td>checkbox</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td>ObjectName__c</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td>Sample CSV for Checkbox</td>
-                </tr>
-                <tr>
-                  <td>Field_Label_Picklist</td>
-                  <td>cm_fieldName_Picklist__c</td>
-                  <td>picklist</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td>ObjectName__c</td>
-                  <td>picklistValue1,picklistValue2,picklistValue3</td>
-                  <td></td>
-                  <td></td>
-                  <td>Sample CSV for Picklist</td>
-                </tr>
-              </tbody>
-            </table>
+    <!-- How it works -->
+    <section class="mb-5">
+      <h2 class="h4 text-center mb-4 fw-semibold">How It Works — 4 Simple Steps</h2>
+      <div class="row g-3">
+        <div class="col-md-6 col-lg-3">
+          <div class="step-card h-100">
+            <div class="step-line d-flex align-items-center justify-content-center gap-2">
+              <span class="step-number-inline"><span class="badge text-bg-primary">1</span></span>
+              <h3 class="h6 mb-0">Download Template</h3>
+              <i class="bi bi-cloud-arrow-down step-icon-inline" aria-hidden="true"></i>
+            </div>
+            <p class="small text-secondary mb-0 mt-2 text-center">Get the sample CSV template to start with.</p>
           </div>
-            <a
-              href="/salesforce_bulk_field_creation_metadata_generator/assets/file/FieldGeneratorTemplate.csv"
-              download="FieldGeneratorTemplate.csv">
-              <button type="button" class="btn btn-primary mt-3 w-100">
-                Download CSV Template <i class="bi bi-cloud-arrow-down" aria-hidden="true"></i>
-              </button>
-            </a>
-          <div class="alert alert-warning mt-4 p-2" role="alert">
-            <small>
-              <i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i>
-              <strong>Important:</strong> Leave unused cells blank. To avoid errors and keep your CSV clean, leave cells
-              empty for columns that don’t apply to the selected field Type. The generator only uses the columns required
-              by each data type and ignores the rest.
-            </small>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="step-card h-100">
+            <div class="step-line d-flex align-items-center justify-content-center gap-2">
+              <span class="step-number-inline"><span class="badge text-bg-primary">2</span></span>
+              <h3 class="h6 mb-0">Fill Your Fields</h3>
+              <i class="bi bi-pencil-square step-icon-inline" aria-hidden="true"></i>
+            </div>
+            <p class="small text-secondary mb-0 mt-2 text-center">Add field definitions row by row.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="step-card h-100">
+            <div class="step-line d-flex align-items-center justify-content-center gap-2">
+              <span class="step-number-inline"><span class="badge text-bg-primary">3</span></span>
+              <h3 class="h6 mb-0">Upload & Generate</h3>
+              <i class="bi bi-gear-fill step-icon-inline" aria-hidden="true"></i>
+            </div>
+            <p class="small text-secondary mb-0 mt-2 text-center">Upload your CSV and click Generate.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="step-card h-100">
+            <div class="step-line d-flex align-items-center justify-content-center gap-2">
+              <span class="step-number-inline"><span class="badge text-bg-primary">4</span></span>
+              <h3 class="h6 mb-0">Deploy to Salesforce</h3>
+              <i class="bi bi-cloud-upload-fill step-icon-inline" aria-hidden="true"></i>
+            </div>
+            <p class="small text-secondary mb-0 mt-2 text-center">Drop XMLs into your project and deploy.</p>
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- Internal links (helps discovery/crawl paths) -->
-      <section class="mt-4 d-none">
-        <h2 class="h5">Resources</h2>
-        <ul>
-          <li><a href="/salesforce_bulk_field_creation_metadata_generator/sitemap.xml">XML Sitemap</a></li>
-          <li><a href="/salesforce_bulk_field_creation_metadata_generator/sitemap.html">HTML Sitemap</a></li>
-          <li><a href="/salesforce_bulk_field_creation_metadata_generator/robots.txt">robots.txt</a></li>
-          <li><a href="https://github.com/Vinnellazaro/salesforce_bulk_field_creation_metadata_generator" target="_blank" rel="noopener">GitHub Repository</a></li>
-        </ul>
-      </section>
-    </div>
+    <div class="row g-4">
 
-    <div class="container col col-12 col-lg-6 col-xl-5">
-      <div class="col-md-8 mx-auto text-center">
+      <!-- LEFT: Steps 1 & 2 -->
+      <div class="col-12 col-lg-7">
 
-        <p class="mb-3 mt-5">
-            This tool generates bulk Salesforce field metadata from a single CSV.
-            Each row becomes a CustomField XML file, automatically placed in an object-based folder structure for easy deployment.
-        </p>
-
-        <div class="alert alert-danger d-none" id="csvError" role="alert">
-          <strong>Please choose a CSV file first. <i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i></strong>
-        </div>
-
-        <div class="input-group mb-3">
-          <label class="input-group-text" for="csvFile">
-            <i class="bi bi-box-arrow-in-down" aria-hidden="true"></i><span class="visually-hidden">Upload CSV</span>
-          </label>
-          <input type="file" class="form-control" id="csvFile" accept=".csv,text/csv">
-        </div>
-
-        <div class="input-group mb-3">
-          <span class="input-group-text" id="basic-addon1">
-            Output base dir (in ZIP) <i class="bi bi-file-earmark-zip" aria-hidden="true"></i>
-          </span>
-          <input type="text" id="outputBaseDir" value="salesforce_metadata"
-                 class="form-control" placeholder="salesforce_metadata"
-                 aria-label="Output base directory" aria-describedby="basic-addon1">
-        </div>
-
-        <button type="button" class="btn btn-primary btn-lg w-100 mb-3" id="generateBtn">
-          Generate Object Field XML <i class="bi bi-gear" aria-hidden="true"></i>
-        </button>
-
-        <div class="card">
+        <!-- Step 1 -->
+        <div class="card step-section mb-4">
           <div class="card-body">
-            <div class="form-floating">
-              <textarea class="form-control" readonly placeholder="Log" id="log" style="height: 250px"></textarea>
-              <label for="log">Log</label>
+            <div class="d-flex align-items-center mb-3">
+              <div class="step-badge me-3"><span class="badge text-bg-primary">1</span></div>
+              <div>
+                <h2 class="h5 mb-0">Download the CSV Template</h2>
+                <small class="text-secondary">Start with our pre-built template containing all supported field types.</small>
+              </div>
+            </div>
+
+            <a href="/salesforce_bulk_field_creation_metadata_generator/assets/file/FieldGeneratorTemplate.csv"
+               download="FieldGeneratorTemplate.csv">
+              <button type="button" class="btn btn-primary w-100">
+                <i class="bi bi-cloud-arrow-down" aria-hidden="true"></i>
+                Download CSV Template
+              </button>
+            </a>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="card step-section mb-4">
+          <div class="card-body">
+            <div class="d-flex align-items-center mb-3">
+              <div class="step-badge me-3"><span class="badge text-bg-primary">2</span></div>
+              <div>
+                <h2 class="h5 mb-0">Fill in Your Field Definitions</h2>
+                <small class="text-secondary">Use the format below. Leave unused columns blank.</small>
+              </div>
+            </div>
+
+            <div class="table-responsive rounded">
+              <table class="table table-striped table-sm align-middle mb-0" style="font-size:0.72rem;">
+                <thead>
+                  <tr>
+                    <th scope="col">FieldLabel</th>
+                    <th scope="col">FieldName</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Length</th>
+                    <th scope="col">Precision</th>
+                    <th scope="col">Scale</th>
+                    <th scope="col">ObjectName</th>
+                    <th scope="col">PicklistValues</th>
+                    <th scope="col">ReferenceTo</th>
+                    <th scope="col">ChildRelationshipName</th>
+                    <th scope="col">Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Field_Label_Text</td>
+                    <td>cm_fieldName_Text__c</td>
+                    <td>text</td>
+                    <td>255</td>
+                    <td></td>
+                    <td></td>
+                    <td>ObjectName__c</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Sample CSV for Text field</td>
+                  </tr>
+                  <tr>
+                    <td>Field_Label_TextAreaLong</td>
+                    <td>cm_fieldName_TextAreaLong__c</td>
+                    <td>textarea(long)</td>
+                    <td>3</td>
+                    <td></td>
+                    <td></td>
+                    <td>ObjectName__c</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Sample CSV for Text field Long</td>
+                  </tr>
+                  <tr>
+                    <td>Field_Label_Number</td>
+                    <td>cm_fieldName_Number__c</td>
+                    <td>number</td>
+                    <td>3</td>
+                    <td></td>
+                    <td></td>
+                    <td>ObjectName__c</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Sample CSV for Number</td>
+                  </tr>
+                  <tr>
+                    <td>Field_Label_Currency</td>
+                    <td>cm_fieldName_Currency__c</td>
+                    <td>currency</td>
+                    <td></td>
+                    <td>0</td>
+                    <td>3</td>
+                    <td>ObjectName__c</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Sample CSV for Currency</td>
+                  </tr>
+                  <tr>
+                    <td>Field_Label_Percent</td>
+                    <td>cm_fieldName_Percent__c</td>
+                    <td>percent</td>
+                    <td></td>
+                    <td>0</td>
+                    <td>3</td>
+                    <td>ObjectName__c</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Sample CSV for Percent</td>
+                  </tr>
+                  <tr>
+                    <td>Field_Label_Checkbox</td>
+                    <td>cm_fieldName_Checkbox__c</td>
+                    <td>checkbox</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>ObjectName__c</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Sample CSV for Checkbox</td>
+                  </tr>
+                  <tr>
+                    <td>Field_Label_Picklist</td>
+                    <td>cm_fieldName_Picklist__c</td>
+                    <td>picklist</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>ObjectName__c</td>
+                    <td>picklistValue1,picklistValue2,picklistValue3</td>
+                    <td></td>
+                    <td></td>
+                    <td>Sample CSV for Picklist</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="alert alert-warning mt-3 p-2 mb-0" role="alert">
+              <small>
+                <i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i>
+                <strong>Tip:</strong> Leave unused cells blank. The generator only reads the columns required
+                by each field Type and ignores the rest.
+              </small>
             </div>
           </div>
         </div>
+      </div>
 
-        <div class="mt-3">
-          <small>After generating the .field-meta.xml files, copy/paste them into your Salesforce project under:</small>
-          <code>force-app/main/default/objects/&lt;ObjectName&gt;/fields/</code>
-          <br />
-          <small>Then deploy to your org using Salesforce CLI:</small>
-          <code>sf project deploy start --source-dir force-app --target-org &lt;your-org-alias&gt;</code>
-          <br />
-          <small>OR VS Code (easy way): Right‑click the folder/file → Deploy Source to Org</small>
+      <!-- RIGHT: Steps 3 & 4 -->
+      <div class="col-12 col-lg-5">
+
+        <!-- Step 3 -->
+        <div class="card step-section mb-4 sticky-step">
+          <div class="card-body">
+            <div class="d-flex align-items-center mb-3">
+              <div class="step-badge me-3"><span class="badge text-bg-primary">3</span></div>
+              <div>
+                <h2 class="h5 mb-0">Upload & Generate</h2>
+                <small class="text-secondary">Upload your filled CSV and generate XML files.</small>
+              </div>
+            </div>
+
+            <div class="alert alert-danger d-none" id="csvError" role="alert">
+              <i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i>
+              <strong>Please choose a CSV file first.</strong>
+            </div>
+
+            <label for="csvFile" class="form-label small mb-1">
+              <i class="bi bi-file-earmark-spreadsheet"></i> Your CSV file
+            </label>
+            <div class="input-group mb-3">
+              <label class="input-group-text" for="csvFile" aria-label="Upload CSV">
+                <i class="bi bi-box-arrow-in-down" aria-hidden="true"></i>
+              </label>
+              <input type="file" class="form-control" id="csvFile" accept=".csv,text/csv">
+            </div>
+
+            <label for="outputBaseDir" class="form-label small mb-1">
+              <i class="bi bi-folder2-open"></i> Output folder name (inside ZIP)
+            </label>
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="basic-addon1">
+                <i class="bi bi-file-earmark-zip" aria-hidden="true"></i>
+              </span>
+              <input type="text" id="outputBaseDir" value="salesforce_metadata"
+                     class="form-control" placeholder="salesforce_metadata"
+                     aria-label="Output base directory" aria-describedby="basic-addon1">
+            </div>
+
+            <button type="button" class="btn btn-success btn-lg w-100 mb-3" id="generateBtn">
+              <i class="bi bi-gear-fill" aria-hidden="true"></i>
+              Generate Object Field XML
+            </button>
+
+            <label for="log" class="form-label small mb-1">
+              <i class="bi bi-terminal"></i> Activity Log
+            </label>
+            <textarea class="form-control log-area" readonly placeholder="Logs will appear here..." id="log" style="height: 200px;"></textarea>
+          </div>
         </div>
 
+        <!-- Step 4 -->
+        <div class="card step-section mb-4">
+          <div class="card-body">
+            <div class="d-flex align-items-center mb-3">
+              <div class="step-badge me-3"><span class="badge text-bg-primary">4</span></div>
+              <div>
+                <h2 class="h5 mb-0">Deploy to Salesforce</h2>
+                <small class="text-secondary">Move the generated files into your project, then deploy.</small>
+              </div>
+            </div>
+
+            <p class="small mb-1"><strong>① Place the files in:</strong></p>
+            <pre class="code-block"><code>force-app/main/default/objects/&lt;ObjectName&gt;/fields/</code></pre>
+
+            <p class="small mb-1 mt-3"><strong>② Deploy via Salesforce CLI:</strong></p>
+            <pre class="code-block"><code>sf project deploy start --source-dir force-app --target-org &lt;your-org-alias&gt;</code></pre>
+
+            <div class="alert alert-info mt-3 mb-0 p-2">
+              <small>
+                <i class="bi bi-info-circle-fill"></i>
+                <strong>Easy way (VS Code):</strong> Right-click the folder/file → <em>Deploy Source to Org</em>
+              </small>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="fixed-top p-2">
-      <small class="me-3 float-end">Version 1.0</small>
-    </div>
+    <!-- Internal links (helps discovery/crawl paths) -->
+    <section class="mt-4 d-none">
+      <h2 class="h5">Resources</h2>
+      <ul>
+        <li><a href="/salesforce_bulk_field_creation_metadata_generator/sitemap.xml">XML Sitemap</a></li>
+        <li><a href="/salesforce_bulk_field_creation_metadata_generator/sitemap.html">HTML Sitemap</a></li>
+        <li><a href="/salesforce_bulk_field_creation_metadata_generator/robots.txt">robots.txt</a></li>
+        <li><a href="https://github.com/Vinnellazaro/salesforce_bulk_field_creation_metadata_generator" target="_blank" rel="noopener">GitHub Repository</a></li>
+      </ul>
+    </section>
   </main>
 
-  <footer class="fixed-bottom pb-3">
-    <div class="float-end">
+  <footer class="site-footer fixed-bottom py-2">
+    <div class="container d-flex justify-content-end gap-2">
       <a href="https://www.paypal.com/paypalme/VinnelLazaro" target="_blank" rel="noopener">
-        <button type="button" class="btn btn-primary">
-          Support My Work <i class="bi bi-paypal" aria-hidden="true"></i>
+        <button type="button" class="btn btn-sm btn-primary">
+          <i class="bi bi-paypal" aria-hidden="true"></i> Support My Work
         </button>
       </a>
       <a href="https://ph.linkedin.com/in/vinnel-lazaro-75a784147" target="_blank" rel="noopener">
-        <button type="button" class="btn btn-primary">
-          Message me <i class="bi bi-linkedin" aria-hidden="true"></i>
+        <button type="button" class="btn btn-sm btn-primary">
+          <i class="bi bi-linkedin" aria-hidden="true"></i> Message me
         </button>
       </a>
     </div>
@@ -323,5 +452,20 @@
   <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
           integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
           crossorigin="anonymous"></script>
+
+  <!-- Theme toggle -->
+  <script>
+    (function() {
+      var btns = document.querySelectorAll('.theme-toggle-btn');
+      btns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var current = document.documentElement.getAttribute('data-bs-theme') || 'dark';
+          var next = current === 'dark' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-bs-theme', next);
+          try { localStorage.setItem('theme', next); } catch (e) {}
+        });
+      });
+    })();
+  </script>
 </body>
 </html>

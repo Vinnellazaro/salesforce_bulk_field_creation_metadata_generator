@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://vinnellazaro.github.io/salesforce_bulk_field_creation_metadata_generator/</loc>
+    <lastmod>2026-05-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://vinnellazaro.github.io/salesforce_bulk_field_creation_metadata_generator/assets/img/cloud-solid-full.svg</image:loc>
+      <image:title>Salesforce Bulk Field XML Generator</image:title>
+      <image:caption>Generate Salesforce CustomField XML files in bulk from a CSV.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://vinnellazaro.github.io/salesforce_bulk_field_creation_metadata_generator/sitemap.html</loc>
+    <lastmod>2026-05-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
   </url>
 </urlset>

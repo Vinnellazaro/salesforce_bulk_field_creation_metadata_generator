@@ -188,12 +188,12 @@ body {
 }
 
 /* Sticky right column on large screens */
-@media (min-width: 992px) {
+/* @media (min-width: 992px) {
   .sticky-step {
     position: sticky;
-    /* top: 70px; */
+    /* top: 70px;
   }
-}
+}*/
 
 /* Footer (floating / fixed at bottom) */
 .site-footer {

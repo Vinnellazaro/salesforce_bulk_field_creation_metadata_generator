@@ -1,1 +1,1 @@
-﻿FieldLabel,FieldName,Type,Length,Precision,Scale,ObjectName,PicklistValues,ReferenceTo,ChildRelationshipName,Description
+FieldLabel,FieldName,Type,ObjectName,Length,Precision,Scale,VisibleLines,DefaultValue,Required,Unique,ExternalId,CaseSensitive,PicklistValues,ReferenceTo,RelationshipLabel,ChildRelationshipName,DeleteConstraint,DisplayFormat,StartingNumber,Formula,FormulaReturnType,FormulaTreatBlanksAs,SummaryOperation,SummaryForeignKey,SummarizedField,DisplayLocationInDecimal,MaskType,MaskChar,Description

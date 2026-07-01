@@ -148,7 +148,7 @@
         "name": "Which Salesforce field types are supported?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The generator supports Text, Text Area (Long), Number, Currency, Percent, Checkbox, Picklist, Lookup, Master-Detail, and other standard CustomField types. See the sample CSV template for the exact column format per type."
+          "text": "All standard Salesforce CustomField types are supported: Text, Text Area, Long Text Area, Rich Text Area, Number, Currency, Percent, Checkbox, Date, Date/Time, Time, Email, Phone, URL, Picklist, Multi-Select Picklist, Lookup, Master-Detail, Auto Number, Formula, Roll-Up Summary, Geolocation, and Encrypted Text. Use the exact Type value from the CSV template for each field."
         }
       },
       {
@@ -180,7 +180,7 @@
   </script>
 
   <!-- Styles -->
-  <link rel="stylesheet" href="/salesforce_bulk_field_creation_metadata_generator/assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
         rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
@@ -190,7 +190,7 @@
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml"
-        href="/salesforce_bulk_field_creation_metadata_generator/assets/img/cloud-solid-full.svg" />
+        href="assets/img/cloud-solid-full.svg" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -218,7 +218,7 @@
           <span class="theme-icon-light">Light</span>
         </span>
       </button>
-      <small class="text-secondary">v1.2</small>
+      <small class="text-secondary">v1.4</small>
     </div>
   </nav>
 
@@ -231,8 +231,8 @@
         <i class="bi bi-cloud-check-fill" aria-hidden="true" style="color:#00a1e0;"></i>
       </h1>
       <p class="lead text-secondary mx-auto" style="max-width: 720px;">
-        Upload a CSV of field definitions and instantly create CustomField
-        <code>.field-meta.xml</code> files organized by object — ready for Salesforce CLI deployment.
+        Build Salesforce CustomField metadata files in bulk — use the guided form builder or upload a CSV.
+        All <code>.field-meta.xml</code> files are generated in your browser, ready for Salesforce CLI deployment.
       </p>
       <div class="d-flex justify-content-center gap-2 flex-wrap mt-3">
         <span class="badge rounded-pill bg-success"><i class="bi bi-lightning-charge-fill"></i> Fast</span>
@@ -249,19 +249,19 @@
           <p class="mb-3">
             The <strong>Salesforce Bulk Field XML Generator</strong> is a free, browser-based tool that helps Salesforce admins and
             developers <strong>generate Salesforce fields in bulk</strong>. Instead of creating CustomFields one by one in
-            Setup, you upload a single CSV of field definitions and the tool produces ready-to-deploy
-            <code>.field-meta.xml</code> files — the same metadata format the Salesforce CLI and VS Code Salesforce
-            extension expect.
+            Setup, you can use the interactive <strong>form builder</strong> to fill in fields one at a time, or
+            <strong>upload a CSV</strong> of field definitions to generate all XML files at once.
           </p>
           <p class="mb-3">
-            Each row in your CSV becomes one CustomField metadata file, automatically placed inside the correct
-            <code>force-app/main/default/objects/&lt;ObjectName&gt;/fields/</code> folder structure. From there you deploy with
+            Each field becomes one CustomField metadata file (<code>.field-meta.xml</code>), automatically placed inside the correct
+            <code>force-app/main/default/objects/&lt;ObjectName&gt;/fields/</code> folder structure — ready to deploy with
             <code>sf project deploy start</code> or right-click → <em>Deploy Source to Org</em> in VS Code.
           </p>
           <p class="mb-3">
-            <strong>Supported field types include:</strong> Text, Text Area (Long), Number, Currency, Percent, Checkbox,
-            Picklist, Lookup, and Master-Detail relationships. The generator handles length, precision, scale, picklist
-            values, references, and child relationship names automatically based on each row's <code>Type</code> column.
+            <strong>Supported field types:</strong> Text, Text Area, Long Text Area, Rich Text Area, Number,
+            Currency, Percent, Checkbox, Date, Date/Time, Time, Email, Phone, URL, Picklist, Multi-Select Picklist,
+            Lookup, Master-Detail, Auto Number, Formula, Roll-Up Summary, Geolocation, and Encrypted Text —
+            all 23 standard Salesforce CustomField types, with type-specific options handled automatically.
           </p>
           <p class="mb-0">
             <strong>Common use cases:</strong> migrating fields between orgs, scaffolding new objects, recreating fields
@@ -272,294 +272,857 @@
       </div>
     </section>
 
-    <!-- How it works -->
-    <section class="mb-5">
-      <h2 class="h4 text-center mb-4 fw-semibold">How It Works — 4 Simple Steps</h2>
+    <!-- How it works — 2 approaches -->
+    <section class="mb-4">
       <div class="row g-3">
-        <div class="col-md-6 col-lg-3">
-          <div class="step-card h-100">
-            <div class="step-line d-flex align-items-center justify-content-center gap-2">
-              <span class="step-number-inline">1</span>
-              <h3 class="h6 mb-0">Download Template</h3>
-              <i class="bi bi-cloud-arrow-down step-icon-inline" aria-hidden="true"></i>
+        <div class="col-12 col-md-6">
+          <div class="card step-section h-100">
+            <div class="card-body">
+              <div class="d-flex align-items-center gap-2 mb-2">
+                <i class="bi bi-pencil-square" style="color:#00a1e0;font-size:1.1rem;" aria-hidden="true"></i>
+                <h3 class="h6 fw-semibold mb-0">Build Fields <span class="badge bg-success ms-1" style="font-size:0.65rem;vertical-align:middle;">Recommended</span></h3>
+              </div>
+              <p class="small text-secondary mb-2">Use the guided form — pick a field type, fill in the options, add to queue, and generate. No spreadsheet needed.</p>
+              <ol class="small text-secondary mb-0 ps-3">
+                <li>Select a field type from the dropdown</li>
+                <li>Fill in the type-specific options</li>
+                <li>Add to queue &rarr; Generate ZIP</li>
+              </ol>
             </div>
-            <p class="small text-secondary mb-0 mt-2 text-center">Get the sample CSV template to start with.</p>
           </div>
         </div>
-        <div class="col-md-6 col-lg-3">
-          <div class="step-card h-100">
-            <div class="step-line d-flex align-items-center justify-content-center gap-2">
-              <span class="step-number-inline">2</span>
-              <h3 class="h6 mb-0">Fill Your Fields</h3>
-              <i class="bi bi-pencil-square step-icon-inline" aria-hidden="true"></i>
+        <div class="col-12 col-md-6">
+          <div class="card step-section h-100">
+            <div class="card-body">
+              <div class="d-flex align-items-center gap-2 mb-2">
+                <i class="bi bi-file-earmark-spreadsheet" style="color:#00a1e0;font-size:1.1rem;" aria-hidden="true"></i>
+                <h3 class="h6 fw-semibold mb-0">Upload CSV</h3>
+              </div>
+              <p class="small text-secondary mb-2">Prepare a spreadsheet of field definitions and generate all XML files in one click — ideal for migrating dozens of fields at once.</p>
+              <ol class="small text-secondary mb-0 ps-3">
+                <li>Download the CSV template</li>
+                <li>Fill in your field definitions</li>
+                <li>Upload &amp; Generate ZIP</li>
+              </ol>
             </div>
-            <p class="small text-secondary mb-0 mt-2 text-center">Add field definitions row by row.</p>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-3">
-          <div class="step-card h-100">
-            <div class="step-line d-flex align-items-center justify-content-center gap-2">
-              <span class="step-number-inline">3</span>
-              <h3 class="h6 mb-0">Upload & Generate</h3>
-              <i class="bi bi-gear-fill step-icon-inline" aria-hidden="true"></i>
-            </div>
-            <p class="small text-secondary mb-0 mt-2 text-center">Upload your CSV and click Generate.</p>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-3">
-          <div class="step-card h-100">
-            <div class="step-line d-flex align-items-center justify-content-center gap-2">
-              <span class="step-number-inline">4</span>
-              <h3 class="h6 mb-0">Deploy to Salesforce</h3>
-              <i class="bi bi-cloud-upload-fill step-icon-inline" aria-hidden="true"></i>
-            </div>
-            <p class="small text-secondary mb-0 mt-2 text-center">Drop XMLs into your project and deploy.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <div class="row g-4">
+    <!-- Main method tabs -->
+    <ul class="nav nav-tabs" id="mainMethodTabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active fw-semibold" id="tabBuildFields" data-bs-toggle="tab"
+                data-bs-target="#buildFieldsPane" type="button" role="tab"
+                aria-controls="buildFieldsPane" aria-selected="true">
+          <i class="bi bi-pencil-square me-1" aria-hidden="true"></i>Build Fields
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="tabUploadCsv" data-bs-toggle="tab"
+                data-bs-target="#uploadCsvPane" type="button" role="tab"
+                aria-controls="uploadCsvPane" aria-selected="false">
+          <i class="bi bi-file-earmark-spreadsheet me-1" aria-hidden="true"></i>Upload CSV
+        </button>
+      </li>
+    </ul>
 
-      <!-- LEFT: Steps 1 & 2 -->
-      <div class="col-12 col-lg-7">
+    <div class="tab-content" id="mainMethodContent">
 
-        <!-- Step 1 -->
-        <div class="card step-section mb-4" id="step-1">
-          <div class="card-body">
-            <div class="d-flex align-items-center mb-3">
-              <div class="step-badge me-3">1</div>
-              <div>
-                <h2 class="h5 mb-0">Download the CSV Template</h2>
-                <small class="text-secondary">Start with our pre-built template containing all supported field types.</small>
+      <!-- ═══════════════════ BUILD FIELDS TAB ═══════════════════ -->
+      <div id="buildFieldsPane" class="tab-pane fade show active" role="tabpanel" aria-labelledby="tabBuildFields">
+        <div class="row g-4 pt-4">
+
+          <!-- LEFT: Build Fields instructions -->
+          <div class="col-12 col-lg-7">
+
+            <div class="card step-section mb-4">
+              <div class="card-body">
+                <div class="d-flex align-items-center mb-3">
+                  <div class="step-badge me-3">1</div>
+                  <div>
+                    <h2 class="h5 mb-0">Select a Field Type</h2>
+                    <small class="text-secondary">The form shows only the relevant options for the selected type — no guesswork.</small>
+                  </div>
+                </div>
+                <p class="small text-secondary mb-2">All 23 standard Salesforce CustomField types are supported:</p>
+                <div class="d-flex flex-wrap gap-1">
+                  <span class="badge tb-text">text</span>
+                  <span class="badge tb-textarea">textarea</span>
+                  <span class="badge tb-longtextarea">longtextarea</span>
+                  <span class="badge tb-richtextarea">richtextarea</span>
+                  <span class="badge tb-number">number</span>
+                  <span class="badge tb-currency">currency</span>
+                  <span class="badge tb-percent">percent</span>
+                  <span class="badge tb-date">date</span>
+                  <span class="badge tb-datetime">datetime</span>
+                  <span class="badge tb-time">time</span>
+                  <span class="badge tb-email">email</span>
+                  <span class="badge tb-phone">phone</span>
+                  <span class="badge tb-url">url</span>
+                  <span class="badge tb-checkbox">checkbox</span>
+                  <span class="badge tb-picklist">picklist</span>
+                  <span class="badge tb-multipicklist">multipicklist</span>
+                  <span class="badge tb-lookup">lookup</span>
+                  <span class="badge tb-masterdetail">masterdetail</span>
+                  <span class="badge tb-autonumber">autonumber</span>
+                  <span class="badge tb-formula">formula</span>
+                  <span class="badge tb-rollup">rollup</span>
+                  <span class="badge tb-geolocation">geolocation</span>
+                  <span class="badge tb-encryptedtext">encryptedtext</span>
+                </div>
               </div>
             </div>
 
-            <a href="/salesforce_bulk_field_creation_metadata_generator/assets/file/FieldGeneratorTemplate.csv"
-               download="FieldGeneratorTemplate.csv">
-              <button type="button" class="btn btn-primary w-100">
-                <i class="bi bi-cloud-arrow-down" aria-hidden="true"></i>
-                Download CSV Template
-              </button>
-            </a>
+            <div class="card step-section mb-4">
+              <div class="card-body">
+                <div class="d-flex align-items-center mb-3">
+                  <div class="step-badge me-3">2</div>
+                  <div>
+                    <h2 class="h5 mb-0">Add Fields to the Queue</h2>
+                    <small class="text-secondary">Build a list of fields across any objects before generating.</small>
+                  </div>
+                </div>
+                <ul class="small text-secondary mb-0 ps-3">
+                  <li><strong>Field Label</strong>, <strong>Field Name (API)</strong>, and <strong>Object Name</strong> are always required.</li>
+                  <li>Type-specific options (Length, Picklist Values, Formula expression, Reference To, etc.) appear automatically when you select a type.</li>
+                  <li>Object Name and Type are kept after each add — quickly add multiple fields to the same object without retyping.</li>
+                  <li>Use the <strong>&times;</strong> button on any queue item to remove it before generating.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="card step-section mb-4">
+              <div class="card-body">
+                <div class="d-flex align-items-center mb-3">
+                  <div class="step-badge me-3">3</div>
+                  <div>
+                    <h2 class="h5 mb-0">Generate ZIP &amp; Deploy</h2>
+                    <small class="text-secondary">Download the ZIP and place the files in your SFDX project.</small>
+                  </div>
+                </div>
+                <p class="small mb-1"><strong>① Place each file in your project:</strong></p>
+                <pre class="code-block mb-3"><code>force-app/main/default/objects/&lt;ObjectName&gt;/fields/</code></pre>
+                <p class="small mb-1"><strong>② Deploy via Salesforce CLI:</strong></p>
+                <pre class="code-block mb-3"><code>sf project deploy start --source-dir force-app --target-org &lt;your-org-alias&gt;</code></pre>
+                <div class="alert alert-info p-2 mb-0">
+                  <small>
+                    <i class="bi bi-info-circle-fill"></i>
+                    <strong>Easy way (VS Code):</strong> Right-click the folder → <em>Deploy Source to Org</em>
+                  </small>
+                </div>
+              </div>
+            </div>
+
           </div>
-        </div>
+          <!-- /left col -->
 
-        <!-- Step 2 -->
-        <div class="card step-section mb-4" id="step-2">
-          <div class="card-body">
-            <div class="d-flex align-items-center mb-3">
-              <div class="step-badge me-3">2</div>
-              <div>
-                <h2 class="h5 mb-0">Fill in Your Field Definitions</h2>
-                <small class="text-secondary">Use the format below. Leave unused columns blank.</small>
+          <!-- RIGHT: Form builder (sticky) -->
+          <div class="col-12 col-lg-5">
+            <div class="card step-section mb-3 sticky-step">
+              <div class="card-body">
+
+                <div class="d-flex align-items-center mb-3">
+                  <i class="bi bi-pencil-square me-2 fs-5" style="color:#00a1e0;" aria-hidden="true"></i>
+                  <div>
+                    <h2 class="h5 mb-0">Field Builder</h2>
+                    <small class="text-secondary">Fill in the form and add fields to the queue.</small>
+                  </div>
+                </div>
+
+                <!-- Output folder for form builder -->
+                <label for="outputBaseDirForm" class="form-label small mb-1">
+                  <i class="bi bi-folder2-open"></i> Output folder name (inside ZIP)
+                </label>
+                <div class="input-group mb-3">
+                  <span class="input-group-text">
+                    <i class="bi bi-file-earmark-zip" aria-hidden="true"></i>
+                  </span>
+                  <input type="text" id="outputBaseDirForm" value="salesforce_metadata"
+                         class="form-control" placeholder="salesforce_metadata">
+                </div>
+
+                <!-- Form builder inputs — keep id="formPanel" for JS compatibility -->
+                <div id="formPanel" class="form-builder">
+
+                  <!-- Core: Type -->
+                  <div class="mb-2">
+                    <label for="formType" class="form-label mb-1 fw-semibold">Field Type</label>
+                    <select class="form-select form-select-sm" id="formType">
+                      <optgroup label="Basic Text">
+                        <option value="text">Text</option>
+                        <option value="textarea">Text Area (plain)</option>
+                        <option value="longtextarea">Long Text Area</option>
+                        <option value="richtextarea">Rich Text Area</option>
+                      </optgroup>
+                      <optgroup label="Numeric">
+                        <option value="number">Number</option>
+                        <option value="currency">Currency</option>
+                        <option value="percent">Percent</option>
+                      </optgroup>
+                      <optgroup label="Date &amp; Time">
+                        <option value="date">Date</option>
+                        <option value="datetime">Date/Time</option>
+                        <option value="time">Time</option>
+                      </optgroup>
+                      <optgroup label="Contact">
+                        <option value="email">Email</option>
+                        <option value="phone">Phone</option>
+                        <option value="url">URL</option>
+                      </optgroup>
+                      <optgroup label="Boolean">
+                        <option value="checkbox">Checkbox</option>
+                      </optgroup>
+                      <optgroup label="Selection">
+                        <option value="picklist">Picklist</option>
+                        <option value="multipicklist">Multi-Select Picklist</option>
+                      </optgroup>
+                      <optgroup label="Relationship">
+                        <option value="lookup">Lookup</option>
+                        <option value="masterdetail">Master-Detail</option>
+                      </optgroup>
+                      <optgroup label="Special">
+                        <option value="autonumber">Auto Number</option>
+                        <option value="formula">Formula</option>
+                        <option value="rollup">Roll-Up Summary</option>
+                        <option value="geolocation">Geolocation</option>
+                        <option value="encryptedtext">Encrypted Text</option>
+                      </optgroup>
+                    </select>
+                    <small class="type-desc text-secondary d-block mt-1" id="typeDesc"></small>
+                  </div>
+
+                  <!-- Core: Field Label -->
+                  <div class="mb-2">
+                    <label for="formFieldLabel" class="form-label mb-1 fw-semibold">Field Label <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control form-control-sm" id="formFieldLabel" placeholder="e.g. Work Email">
+                    <div class="invalid-feedback">Field Label is required.</div>
+                  </div>
+
+                  <!-- Core: Field Name -->
+                  <div class="mb-2">
+                    <label for="formFieldName" class="form-label mb-1 fw-semibold">Field Name (API) <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control form-control-sm" id="formFieldName" placeholder="e.g. Work_Email__c">
+                    <div class="invalid-feedback">Field Name is required.</div>
+                  </div>
+
+                  <!-- Core: Object Name -->
+                  <div class="mb-2">
+                    <label for="formObjectName" class="form-label mb-1 fw-semibold">Object Name <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control form-control-sm" id="formObjectName" placeholder="e.g. Account or My_Object__c">
+                    <div class="invalid-feedback">Object Name is required.</div>
+                  </div>
+
+                  <!-- fg-length -->
+                  <div class="mb-2 fg-length d-none">
+                    <label for="formLength" class="form-label mb-1 fw-semibold">Length</label>
+                    <input type="number" class="form-control form-control-sm" id="formLength" placeholder="255" min="1">
+                  </div>
+
+                  <!-- fg-precision -->
+                  <div class="mb-2 fg-precision d-none">
+                    <label for="formPrecision" class="form-label mb-1 fw-semibold">Precision <small class="text-secondary">(total digits)</small></label>
+                    <input type="number" class="form-control form-control-sm" id="formPrecision" placeholder="18" min="1" max="18">
+                  </div>
+
+                  <!-- fg-scale -->
+                  <div class="mb-2 fg-scale d-none">
+                    <label for="formScale" class="form-label mb-1 fw-semibold">Scale <small class="text-secondary">(decimal places)</small></label>
+                    <input type="number" class="form-control form-control-sm" id="formScale" placeholder="0" min="0" max="17">
+                  </div>
+
+                  <!-- fg-visiblelines -->
+                  <div class="mb-2 fg-visiblelines d-none">
+                    <label for="formVisibleLines" class="form-label mb-1 fw-semibold">Visible Lines</label>
+                    <input type="number" class="form-control form-control-sm" id="formVisibleLines" placeholder="3" min="2" max="50">
+                  </div>
+
+                  <!-- fg-defaultvalue (checkbox) -->
+                  <div class="mb-2 fg-defaultvalue d-none">
+                    <label for="formDefaultValue" class="form-label mb-1 fw-semibold">Default Value</label>
+                    <select class="form-select form-select-sm" id="formDefaultValue">
+                      <option value="false">Unchecked (false)</option>
+                      <option value="true">Checked (true)</option>
+                    </select>
+                  </div>
+
+                  <!-- fg-defaultvalue-str (text/email/phone/url/date/datetime/time/picklist) -->
+                  <div class="mb-2 fg-defaultvalue-str d-none">
+                    <label for="formDefaultValueStr" class="form-label mb-1 fw-semibold">Default Value <small class="text-secondary fw-normal">(optional)</small></label>
+                    <input type="text" class="form-control form-control-sm" id="formDefaultValueStr" placeholder="">
+                    <div class="form-text" style="font-size:0.71rem;" id="formDefaultValueStrHint"></div>
+                  </div>
+
+                  <!-- fg-defaultvalue-num (number/currency/percent) -->
+                  <div class="mb-2 fg-defaultvalue-num d-none">
+                    <label for="formDefaultValueNum" class="form-label mb-1 fw-semibold">Default Value <small class="text-secondary fw-normal">(optional)</small></label>
+                    <input type="number" class="form-control form-control-sm" id="formDefaultValueNum" placeholder="e.g. 0" step="any">
+                  </div>
+
+                  <!-- fg-required -->
+                  <div class="mb-2 fg-required d-none">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="formRequired">
+                      <label class="form-check-label" for="formRequired">Required</label>
+                    </div>
+                  </div>
+
+                  <!-- fg-unique-ext -->
+                  <div class="mb-2 fg-unique-ext d-none">
+                    <div class="d-flex gap-4">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="formUnique">
+                        <label class="form-check-label" for="formUnique">Unique</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="formExternalId">
+                        <label class="form-check-label" for="formExternalId">External ID</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- fg-picklist -->
+                  <div class="mb-2 fg-picklist d-none">
+                    <label for="formPicklistValues" class="form-label mb-1 fw-semibold">Picklist Values <span class="text-danger">*</span></label>
+                    <textarea class="form-control form-control-sm" id="formPicklistValues" rows="2" placeholder="Option1, Option2, Option3"></textarea>
+                    <div class="invalid-feedback">At least one picklist value is required.</div>
+                    <div class="form-text" style="font-size:0.71rem;">Separate values with commas.</div>
+                  </div>
+
+                  <!-- fg-referenceto -->
+                  <div class="mb-2 fg-referenceto d-none">
+                    <label for="formReferenceTo" class="form-label mb-1 fw-semibold">Reference To <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control form-control-sm" id="formReferenceTo" placeholder="e.g. Account">
+                    <div class="invalid-feedback">Reference To is required.</div>
+                  </div>
+
+                  <!-- fg-relname -->
+                  <div class="fg-relname d-none">
+                    <div class="mb-2">
+                      <label for="formRelationshipLabel" class="form-label mb-1 fw-semibold">Relationship Label <small class="text-secondary">(optional)</small></label>
+                      <input type="text" class="form-control form-control-sm" id="formRelationshipLabel" placeholder="Defaults to Field Label">
+                    </div>
+                    <div class="mb-2">
+                      <label for="formChildRelName" class="form-label mb-1 fw-semibold">Child Relationship Name <small class="text-secondary">(optional)</small></label>
+                      <input type="text" class="form-control form-control-sm" id="formChildRelName" placeholder="Defaults to Field Name">
+                    </div>
+                  </div>
+
+                  <!-- fg-deleteconst -->
+                  <div class="mb-2 fg-deleteconst d-none">
+                    <label for="formDeleteConstraint" class="form-label mb-1 fw-semibold">Delete Constraint</label>
+                    <select class="form-select form-select-sm" id="formDeleteConstraint">
+                      <option value="SetNull">Set Field to Null (default)</option>
+                      <option value="Restrict">Restrict Deletion</option>
+                      <option value="Cascade">Cascade Delete</option>
+                    </select>
+                  </div>
+
+                  <!-- fg-autonumber -->
+                  <div class="fg-autonumber d-none">
+                    <div class="mb-2">
+                      <label for="formDisplayFormat" class="form-label mb-1 fw-semibold">Display Format</label>
+                      <input type="text" class="form-control form-control-sm" id="formDisplayFormat" placeholder="AN-{00000}">
+                    </div>
+                    <div class="mb-2">
+                      <label for="formStartingNumber" class="form-label mb-1 fw-semibold">Starting Number</label>
+                      <input type="number" class="form-control form-control-sm" id="formStartingNumber" placeholder="1" min="0">
+                    </div>
+                    <div class="mb-2">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="formExternalIdAuto">
+                        <label class="form-check-label" for="formExternalIdAuto">External ID</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- fg-formula -->
+                  <div class="fg-formula d-none">
+                    <div class="mb-2">
+                      <label for="formFormulaReturnType" class="form-label mb-1 fw-semibold">Return Type</label>
+                      <select class="form-select form-select-sm" id="formFormulaReturnType">
+                        <option value="text">Text</option>
+                        <option value="number">Number</option>
+                        <option value="currency">Currency</option>
+                        <option value="percent">Percent</option>
+                        <option value="date">Date</option>
+                        <option value="datetime">Date/Time</option>
+                        <option value="checkbox">Checkbox</option>
+                        <option value="time">Time</option>
+                      </select>
+                    </div>
+                    <div class="mb-2">
+                      <label for="formFormula" class="form-label mb-1 fw-semibold">Formula Expression <span class="text-danger">*</span></label>
+                      <textarea class="form-control form-control-sm" id="formFormula" rows="2" placeholder="e.g. FirstName + ' ' + LastName"></textarea>
+                      <div class="invalid-feedback">Formula expression is required.</div>
+                    </div>
+                    <div class="mb-2">
+                      <label for="formTreatBlanks" class="form-label mb-1 fw-semibold">Treat Blanks As</label>
+                      <select class="form-select form-select-sm" id="formTreatBlanks">
+                        <option value="BlankAsBlank">Blank (default)</option>
+                        <option value="BlankAsZero">Zero</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- fg-rollup -->
+                  <div class="fg-rollup d-none">
+                    <div class="mb-2">
+                      <label for="formSummaryOp" class="form-label mb-1 fw-semibold">Summary Operation</label>
+                      <select class="form-select form-select-sm" id="formSummaryOp">
+                        <option value="COUNT">COUNT</option>
+                        <option value="SUM">SUM</option>
+                        <option value="MIN">MIN</option>
+                        <option value="MAX">MAX</option>
+                      </select>
+                    </div>
+                    <div class="mb-2">
+                      <label for="formSummaryForeignKey" class="form-label mb-1 fw-semibold">Foreign Key <span class="text-danger">*</span></label>
+                      <input type="text" class="form-control form-control-sm" id="formSummaryForeignKey" placeholder="e.g. Opportunity.AccountId">
+                      <div class="invalid-feedback">Foreign Key is required.</div>
+                    </div>
+                    <div class="mb-2">
+                      <label for="formSummarizedField" class="form-label mb-1 fw-semibold">Summarized Field <small class="text-secondary">(not needed for COUNT)</small></label>
+                      <input type="text" class="form-control form-control-sm" id="formSummarizedField" placeholder="e.g. Opportunity.Amount">
+                    </div>
+                  </div>
+
+                  <!-- fg-geolocation -->
+                  <div class="mb-2 fg-geolocation d-none">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="formDisplayDecimal" checked>
+                      <label class="form-check-label" for="formDisplayDecimal">Display in decimal degrees</label>
+                    </div>
+                  </div>
+
+                  <!-- fg-encrypted -->
+                  <div class="fg-encrypted d-none">
+                    <div class="mb-2">
+                      <label for="formMaskType" class="form-label mb-1 fw-semibold">Mask Type</label>
+                      <select class="form-select form-select-sm" id="formMaskType">
+                        <option value="all">All characters</option>
+                        <option value="lastFour">Last four visible</option>
+                        <option value="creditCard">Credit card</option>
+                        <option value="ssn">SSN</option>
+                        <option value="nino">NINO</option>
+                        <option value="sin">SIN</option>
+                      </select>
+                    </div>
+                    <div class="mb-2">
+                      <label for="formMaskChar" class="form-label mb-1 fw-semibold">Mask Character</label>
+                      <select class="form-select form-select-sm" id="formMaskChar">
+                        <option value="asterisk">Asterisk (*)</option>
+                        <option value="X">X</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- Description (optional) -->
+                  <div class="mb-3">
+                    <label for="formDescription" class="form-label mb-1 text-secondary">Description <small>(optional)</small></label>
+                    <textarea class="form-control form-control-sm" id="formDescription" rows="2" placeholder="Field description..."></textarea>
+                  </div>
+
+                  <!-- Add to Queue button -->
+                  <button type="button" class="btn btn-primary w-100" id="addFieldBtn" onclick="addFieldToQueue()">
+                    <i class="bi bi-plus-circle" aria-hidden="true"></i> Add to Queue
+                  </button>
+
+                  <!-- Queue header -->
+                  <div class="d-flex justify-content-between align-items-center mt-3 mb-1">
+                    <small class="queue-label fw-semibold text-secondary">Field Queue</small>
+                    <small class="text-secondary" id="queueCountBadge" style="font-size:0.75rem;">0 fields</small>
+                  </div>
+
+                  <!-- Queue list -->
+                  <div id="fieldQueue" class="field-queue">
+                    <div class="queue-empty text-secondary">No fields added yet.</div>
+                  </div>
+
+                  <!-- Generate from queue -->
+                  <button type="button" class="btn btn-success w-100 mt-2" id="generateFormBtn" disabled>
+                    <i class="bi bi-gear-fill" aria-hidden="true"></i>
+                    Generate ZIP &mdash; <span id="queueCount">0</span> field<span id="queuePlural">s</span>
+                  </button>
+
+                </div>
+                <!-- /formPanel -->
+
               </div>
             </div>
 
-            <div class="table-responsive rounded">
-              <table class="table table-striped table-sm align-middle mb-0" style="font-size:0.72rem;">
-                <thead>
-                  <tr>
-                    <th scope="col">FieldLabel</th>
-                    <th scope="col">FieldName</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">Length</th>
-                    <th scope="col">Precision</th>
-                    <th scope="col">Scale</th>
-                    <th scope="col">ObjectName</th>
-                    <th scope="col">PicklistValues</th>
-                    <th scope="col">ReferenceTo</th>
-                    <th scope="col">ChildRelationshipName</th>
-                    <th scope="col">Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Field_Label_Text</td>
-                    <td>cm_fieldName_Text__c</td>
-                    <td>text</td>
-                    <td>255</td>
-                    <td></td>
-                    <td></td>
-                    <td>ObjectName__c</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>Sample CSV for Text field</td>
-                  </tr>
-                  <tr>
-                    <td>Field_Label_TextAreaLong</td>
-                    <td>cm_fieldName_TextAreaLong__c</td>
-                    <td>textarea(long)</td>
-                    <td>3</td>
-                    <td></td>
-                    <td></td>
-                    <td>ObjectName__c</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>Sample CSV for Text field Long</td>
-                  </tr>
-                  <tr>
-                    <td>Field_Label_Number</td>
-                    <td>cm_fieldName_Number__c</td>
-                    <td>number</td>
-                    <td>3</td>
-                    <td></td>
-                    <td></td>
-                    <td>ObjectName__c</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>Sample CSV for Number</td>
-                  </tr>
-                  <tr>
-                    <td>Field_Label_Currency</td>
-                    <td>cm_fieldName_Currency__c</td>
-                    <td>currency</td>
-                    <td></td>
-                    <td>0</td>
-                    <td>3</td>
-                    <td>ObjectName__c</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>Sample CSV for Currency</td>
-                  </tr>
-                  <tr>
-                    <td>Field_Label_Percent</td>
-                    <td>cm_fieldName_Percent__c</td>
-                    <td>percent</td>
-                    <td></td>
-                    <td>0</td>
-                    <td>3</td>
-                    <td>ObjectName__c</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>Sample CSV for Percent</td>
-                  </tr>
-                  <tr>
-                    <td>Field_Label_Checkbox</td>
-                    <td>cm_fieldName_Checkbox__c</td>
-                    <td>checkbox</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>ObjectName__c</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>Sample CSV for Checkbox</td>
-                  </tr>
-                  <tr>
-                    <td>Field_Label_Picklist</td>
-                    <td>cm_fieldName_Picklist__c</td>
-                    <td>picklist</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>ObjectName__c</td>
-                    <td>picklistValue1,picklistValue2,picklistValue3</td>
-                    <td></td>
-                    <td></td>
-                    <td>Sample CSV for Picklist</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div class="alert alert-warning mt-3 p-2 mb-0" role="alert">
-              <small>
-                <i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i>
-                <strong>Tip:</strong> Leave unused cells blank. The generator only reads the columns required
-                by each field Type and ignores the rest.
-              </small>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- RIGHT: Steps 3 & 4 -->
-      <div class="col-12 col-lg-5">
-
-        <!-- Step 3 -->
-        <div class="card step-section mb-4 sticky-step" id="step-3">
-          <div class="card-body">
-            <div class="d-flex align-items-center mb-3">
-              <div class="step-badge me-3">3</div>
-              <div>
-                <h2 class="h5 mb-0">Upload & Generate</h2>
-                <small class="text-secondary">Upload your filled CSV and generate XML files.</small>
-              </div>
-            </div>
-
-            <div class="alert alert-danger d-none" id="csvError" role="alert">
-              <i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i>
-              <strong>Please choose a CSV file first.</strong>
-            </div>
-
-            <label for="csvFile" class="form-label small mb-1">
-              <i class="bi bi-file-earmark-spreadsheet"></i> Your CSV file
-            </label>
-            <div class="input-group mb-3">
-              <label class="input-group-text" for="csvFile" aria-label="Upload CSV">
-                <i class="bi bi-box-arrow-in-down" aria-hidden="true"></i>
-              </label>
-              <input type="file" class="form-control" id="csvFile" accept=".csv,text/csv">
-            </div>
-
-            <label for="outputBaseDir" class="form-label small mb-1">
-              <i class="bi bi-folder2-open"></i> Output folder name (inside ZIP)
-            </label>
-            <div class="input-group mb-3">
-              <span class="input-group-text" id="basic-addon1">
-                <i class="bi bi-file-earmark-zip" aria-hidden="true"></i>
-              </span>
-              <input type="text" id="outputBaseDir" value="salesforce_metadata"
-                     class="form-control" placeholder="salesforce_metadata"
-                     aria-label="Output base directory" aria-describedby="basic-addon1">
-            </div>
-
-            <button type="button" class="btn btn-primary w-100 mb-3" id="generateBtn">
-              <i class="bi bi-gear-fill" aria-hidden="true"></i>
-              Generate Object Field XML
-            </button>
-
-            <label for="log" class="form-label small mb-1">
+            <!-- Activity Log for Build Fields -->
+            <label for="logBuild" class="form-label small mb-1">
               <i class="bi bi-terminal"></i> Activity Log
             </label>
-            <textarea class="form-control log-area" readonly placeholder="Logs will appear here..." id="log" style="height: 200px;"></textarea>
-          </div>
-        </div>
+            <textarea class="form-control log-area" readonly placeholder="Logs will appear here..." id="logBuild" style="height: 140px;"></textarea>
 
-        <!-- Step 4 -->
-        <div class="card step-section mb-4" id="step-4">
-          <div class="card-body">
-            <div class="d-flex align-items-center mb-3">
-              <div class="step-badge me-3">4</div>
-              <div>
-                <h2 class="h5 mb-0">Deploy to Salesforce</h2>
-                <small class="text-secondary">Move the generated files into your project, then deploy.</small>
+          </div>
+          <!-- /right col -->
+
+        </div>
+      </div>
+      <!-- /buildFieldsPane -->
+
+      <!-- ═══════════════════════════ UPLOAD CSV TAB ═══════════════════════════ -->
+      <div id="uploadCsvPane" class="tab-pane fade" role="tabpanel" aria-labelledby="tabUploadCsv">
+        <div class="row g-4 pt-4">
+
+          <!-- LEFT: CSV Steps 1 & 2 -->
+          <div class="col-12 col-lg-7">
+
+            <!-- Step 1: Download template -->
+            <div class="card step-section mb-4" id="step-1">
+              <div class="card-body">
+                <div class="d-flex align-items-center mb-3">
+                  <div class="step-badge me-3">1</div>
+                  <div>
+                    <h2 class="h5 mb-0">Download the CSV Template</h2>
+                    <small class="text-secondary">Start with our pre-built template containing all supported field types.</small>
+                  </div>
+                </div>
+                <a href="assets/file/FieldGeneratorTemplate.csv" download="FieldGeneratorTemplate.csv">
+                  <button type="button" class="btn btn-primary w-100">
+                    <i class="bi bi-cloud-arrow-down" aria-hidden="true"></i>
+                    Download CSV Template
+                  </button>
+                </a>
               </div>
             </div>
 
-            <p class="small mb-1"><strong>① Place the files in:</strong></p>
-            <pre class="code-block"><code>force-app/main/default/objects/&lt;ObjectName&gt;/fields/</code></pre>
+            <!-- Step 2: Fill in field definitions -->
+            <div class="card step-section mb-4" id="step-2">
+              <div class="card-body">
+                <div class="d-flex align-items-center mb-3">
+                  <div class="step-badge me-3">2</div>
+                  <div>
+                    <h2 class="h5 mb-0">Fill in Your Field Definitions</h2>
+                    <small class="text-secondary">Use the format below. Leave unused columns blank.</small>
+                  </div>
+                </div>
 
-            <p class="small mb-1 mt-3"><strong>② Deploy via Salesforce CLI:</strong></p>
-            <pre class="code-block"><code>sf project deploy start --source-dir force-app --target-org &lt;your-org-alias&gt;</code></pre>
+                <div class="table-responsive rounded">
+                  <table class="table table-striped table-sm align-middle mb-0" style="font-size:0.72rem;">
+                    <thead>
+                      <tr>
+                        <th scope="col">FieldLabel</th>
+                        <th scope="col">FieldName</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">ObjectName</th>
+                        <th scope="col">Length</th>
+                        <th scope="col">Precision</th>
+                        <th scope="col">Scale</th>
+                        <th scope="col">VisibleLines</th>
+                        <th scope="col">DefaultValue</th>
+                        <th scope="col">Required</th>
+                        <th scope="col">Unique</th>
+                        <th scope="col">ExternalId</th>
+                        <th scope="col">PicklistValues</th>
+                        <th scope="col">ReferenceTo</th>
+                        <th scope="col">RelationshipLabel</th>
+                        <th scope="col">ChildRelationshipName</th>
+                        <th scope="col">DeleteConstraint</th>
+                        <th scope="col">DisplayFormat</th>
+                        <th scope="col">StartingNumber</th>
+                        <th scope="col">Formula</th>
+                        <th scope="col">FormulaReturnType<br><small class="fw-normal text-secondary" style="font-size:0.65rem;">text · number · currency · percent · date · datetime · checkbox · time</small></th>
+                        <th scope="col">FormulaTreatBlanksAs<br><small class="fw-normal text-secondary" style="font-size:0.65rem;">BlankAsBlank · BlankAsZero</small></th>
+                        <th scope="col">SummaryOperation<br><small class="fw-normal text-secondary" style="font-size:0.65rem;">COUNT · SUM · MIN · MAX</small></th>
+                        <th scope="col">SummaryForeignKey</th>
+                        <th scope="col">SummarizedField</th>
+                        <th scope="col">DisplayLocationInDecimal</th>
+                        <th scope="col">MaskType</th>
+                        <th scope="col">MaskChar</th>
+                        <th scope="col">Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>My Text</td><td>My_Text__c</td><td><strong>text</strong></td><td>Account</td>
+                        <td>255</td><td></td><td></td><td></td><td></td>
+                        <td>true</td><td>false</td><td>false</td>
+                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        <td>Plain text field</td>
+                      </tr>
+                      <tr>
+                        <td>My Text Area</td><td>My_TextArea__c</td><td><strong>textarea</strong></td><td>Account</td>
+                        <td></td><td></td><td></td><td></td><td></td>
+                        <td>false</td><td></td><td></td>
+                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        <td>Plain text area (≤255)</td>
+                      </tr>
+                      <tr>
+                        <td>My Long Text</td><td>My_LongText__c</td><td><strong>longtextarea</strong></td><td>Account</td>
+                        <td>32768</td><td></td><td></td><td>3</td><td></td>
+                        <td></td><td></td><td></td>
+                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        <td>Long text area</td>
+                      </tr>
+                      <tr>
+                        <td>My Rich Text</td><td>My_RichText__c</td><td><strong>richtextarea</strong></td><td>Account</td>
+                        <td>32768</td><td></td><td></td><td>10</td><td></td>
+                        <td></td><td></td><td></td>
+                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        <td>Rich text area (HTML)</td>
+                      </tr>
+                      <tr>
+                        <td>My Number</td><td>My_Number__c</td><td><strong>number</strong></td><td>Account</td>
+                        <td></td><td>18</td><td>2</td><td></td><td></td>
+                        <td>false</td><td>false</td><td>false</td>
+                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        <td>Numeric field</td>
+                      </tr>
+                      <tr>
+                        <td>My Currency</td><td>My_Currency__c</td><td><strong>currency</strong></td><td>Account</td>
+                        <td></td><td>18</td><td>2</td><td></td><td></td>
+                        <td>false</td><td></td><td></td>
+                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        <td>Currency field</td>
+                      </tr>
+                      <tr>
+                        <td>My Percent</td><td>My_Percent__c</td><td><strong>percent</strong></td><td>Account</td>
+                        <td></td><td>18</td><td>2</td><td></td><td></td>
+                        <td>false</td><td></td><td></td>
+                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        <td>Percent field</td>
+                      </tr>
+                      <tr>
+                        <td>Is Active</td><td>Is_Active__c</td><td><strong>checkbox</strong></td><td>Account</td>
+                        <td></td><td></td><td></td><td></td><td>true</td>
+                        <td></td><td></td><td></td>
+                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        <td>Boolean checkbox</td>
+                      </tr>
+                      <tr>
+                        <td>Start Date</td><td>Start_Date__c</td><td><strong>date</strong></td><td>Account</td>
+                        <td></td><td></td><td></td><td></td><td></td>
+                        <td>true</td><td></td><td></td>
+                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        <td>Date field</td>
+                      </tr>
+                      <tr>
+                        <td>Created On</td><td>Created_On__c</td><td><strong>datetime</strong></td><td>Account</td>
+                        <td></td><td></td><td></td><td></td><td></td>
+                        <td>false</td><td></td><td></td>
+                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        <td>Date and time field</td>
+                      </tr>
+                      <tr>
+                        <td>Open Time</td><td>Open_Time__c</td><td><strong>time</strong></td><td>Account</td>
+                        <td></td><td></td><td></td><td></td><td></td>
+                        <td>false</td><td></td><td></td>
+                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        <td>Time of day field</td>
+                      </tr>
+                      <tr>
+                        <td>Work Email</td><td>Work_Email__c</td><td><strong>email</strong></td><td>Contact</td>
+                        <td></td><td></td><td></td><td></td><td></td>
+                        <td>false</td><td>true</td><td>false</td>
+                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        <td>Email field</td>
+                      </tr>
+                      <tr>
+                        <td>Mobile Number</td><td>Mobile_Number__c</td><td><strong>phone</strong></td><td>Contact</td>
+                        <td></td><td></td><td></td><td></td><td></td>
+                        <td>false</td><td></td><td></td>
+                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        <td>Phone number field</td>
+                      </tr>
+                      <tr>
+                        <td>Website</td><td>Website__c</td><td><strong>url</strong></td><td>Contact</td>
+                        <td></td><td></td><td></td><td></td><td></td>
+                        <td>false</td><td></td><td></td>
+                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        <td>URL field</td>
+                      </tr>
+                      <tr>
+                        <td>Status</td><td>Status__c</td><td><strong>picklist</strong></td><td>Case</td>
+                        <td></td><td></td><td></td><td></td><td></td>
+                        <td>false</td><td></td><td></td>
+                        <td>New,Open,Closed</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        <td>Single-select picklist</td>
+                      </tr>
+                      <tr>
+                        <td>Tags</td><td>Tags__c</td><td><strong>multipicklist</strong></td><td>Case</td>
+                        <td></td><td></td><td></td><td>4</td><td></td>
+                        <td>false</td><td></td><td></td>
+                        <td>Urgent,Billing,Technical</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        <td>Multi-select picklist</td>
+                      </tr>
+                      <tr>
+                        <td>Account Lookup</td><td>Account_Lookup__c</td><td><strong>lookup</strong></td><td>Contact</td>
+                        <td></td><td></td><td></td><td></td><td></td>
+                        <td>false</td><td></td><td></td>
+                        <td></td><td>Account</td><td>Contacts</td><td>Contacts</td><td>SetNull</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        <td>Lookup relationship</td>
+                      </tr>
+                      <tr>
+                        <td>Parent Account</td><td>Parent_Account__c</td><td><strong>masterdetail</strong></td><td>Order__c</td>
+                        <td></td><td></td><td></td><td></td><td></td>
+                        <td></td><td></td><td></td>
+                        <td></td><td>Account</td><td>Orders</td><td>Orders</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        <td>Master-detail relationship</td>
+                      </tr>
+                      <tr>
+                        <td>Record ID</td><td>Record_ID__c</td><td><strong>autonumber</strong></td><td>Order__c</td>
+                        <td></td><td></td><td></td><td></td><td></td>
+                        <td></td><td></td><td>true</td>
+                        <td></td><td></td><td></td><td></td><td></td><td>REC-{0000}</td><td>1</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        <td>Auto-numbered field</td>
+                      </tr>
+                      <tr>
+                        <td>Full Name</td><td>Full_Name__c</td><td><strong>formula</strong></td><td>Contact</td>
+                        <td></td><td></td><td></td><td></td><td></td>
+                        <td></td><td></td><td></td>
+                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        <td>FirstName + ' ' + LastName</td><td><strong>text</strong></td><td>BlankAsBlank</td>
+                        <td></td><td></td><td></td><td></td><td></td><td></td>
+                        <td>Formula — text return type</td>
+                      </tr>
+                      <tr>
+                        <td>Discount Amt</td><td>Discount_Amt__c</td><td><strong>formula</strong></td><td>Opportunity</td>
+                        <td></td><td>18</td><td>2</td><td></td><td></td>
+                        <td></td><td></td><td></td>
+                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        <td>Amount * Discount__c / 100</td><td><strong>currency</strong></td><td>BlankAsZero</td>
+                        <td></td><td></td><td></td><td></td><td></td><td></td>
+                        <td>Formula — currency return type</td>
+                      </tr>
+                      <tr>
+                        <td>Total Amount</td><td>Total_Amount__c</td><td><strong>rollup</strong></td><td>Account</td>
+                        <td></td><td></td><td></td><td></td><td></td>
+                        <td></td><td></td><td></td>
+                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        <td>SUM</td><td>Opportunity.AccountId</td><td>Opportunity.Amount</td>
+                        <td></td><td></td><td></td>
+                        <td>Roll-up summary (SUM)</td>
+                      </tr>
+                      <tr>
+                        <td>Office Location</td><td>Office_Location__c</td><td><strong>geolocation</strong></td><td>Account</td>
+                        <td></td><td></td><td>7</td><td></td><td></td>
+                        <td>false</td><td></td><td></td>
+                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        <td>true</td><td></td><td></td>
+                        <td>Geolocation field</td>
+                      </tr>
+                      <tr>
+                        <td>SSN</td><td>SSN__c</td><td><strong>encryptedtext</strong></td><td>Contact</td>
+                        <td>175</td><td></td><td></td><td></td><td></td>
+                        <td>false</td><td></td><td></td>
+                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        <td>all</td><td>asterisk</td>
+                        <td>Encrypted text field</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
 
-            <div class="alert alert-info mt-3 mb-0 p-2">
-              <small>
-                <i class="bi bi-info-circle-fill"></i>
-                <strong>Easy way (VS Code):</strong> Right-click the folder/file → <em>Deploy Source to Org</em>
-              </small>
+                <div class="alert alert-warning mt-3 p-2 mb-0" role="alert">
+                  <small>
+                    <i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i>
+                    <strong>Tips:</strong> Leave unused cells blank — only the columns required by each <code>Type</code> are read.
+                    Boolean columns (Required, Unique, ExternalId, CaseSensitive, DisplayLocationInDecimal) accept <code>true</code> / <code>false</code>.
+                    For <strong>formula</strong> fields, <code>FormulaReturnType</code> sets the return type:
+                    <code>text</code>, <code>number</code>, <code>currency</code>, <code>percent</code>,
+                    <code>date</code>, <code>datetime</code>, <code>checkbox</code>, or <code>time</code> — defaults to <code>text</code> if left blank.
+                    Numeric formula return types also read <code>Precision</code> and <code>Scale</code>.
+                  </small>
+                </div>
+
+              </div>
             </div>
+
           </div>
+          <!-- /left col -->
+
+          <!-- RIGHT: Upload CSV (sticky) -->
+          <div class="col-12 col-lg-5">
+            <div class="card step-section mb-3 sticky-step">
+              <div class="card-body">
+
+                <div class="d-flex align-items-center mb-3">
+                  <i class="bi bi-file-earmark-spreadsheet me-2 fs-5" style="color:#00a1e0;" aria-hidden="true"></i>
+                  <div>
+                    <h2 class="h5 mb-0">Upload &amp; Generate</h2>
+                    <small class="text-secondary">Upload your completed CSV to generate all XML files at once.</small>
+                  </div>
+                </div>
+
+                <!-- Output folder for CSV -->
+                <label for="outputBaseDirCsv" class="form-label small mb-1">
+                  <i class="bi bi-folder2-open"></i> Output folder name (inside ZIP)
+                </label>
+                <div class="input-group mb-3">
+                  <span class="input-group-text">
+                    <i class="bi bi-file-earmark-zip" aria-hidden="true"></i>
+                  </span>
+                  <input type="text" id="outputBaseDirCsv" value="salesforce_metadata"
+                         class="form-control" placeholder="salesforce_metadata">
+                </div>
+
+                <!-- CSV Error -->
+                <div class="alert alert-danger d-none" id="csvError" role="alert">
+                  <i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i>
+                  <strong>Please choose a CSV file first.</strong>
+                </div>
+
+                <!-- File input -->
+                <label for="csvFile" class="form-label small mb-1">
+                  <i class="bi bi-file-earmark-spreadsheet"></i> Your CSV file
+                </label>
+                <div class="input-group mb-3">
+                  <label class="input-group-text" for="csvFile" aria-label="Upload CSV">
+                    <i class="bi bi-box-arrow-in-down" aria-hidden="true"></i>
+                  </label>
+                  <input type="file" class="form-control" id="csvFile" accept=".csv,text/csv">
+                </div>
+                <button type="button" class="btn btn-primary w-100" id="generateBtn">
+                  <i class="bi bi-gear-fill" aria-hidden="true"></i>
+                  Generate Object Field XML
+                </button>
+
+              </div>
+            </div>
+
+            <!-- Deploy step for CSV -->
+            <div class="card step-section mb-3">
+              <div class="card-body">
+                <div class="d-flex align-items-center mb-3">
+                  <div class="step-badge me-3">3</div>
+                  <div>
+                    <h2 class="h5 mb-0">Deploy to Salesforce</h2>
+                    <small class="text-secondary">Move the generated files into your project, then deploy.</small>
+                  </div>
+                </div>
+                <p class="small mb-1"><strong>① Place the files in:</strong></p>
+                <pre class="code-block mb-3"><code>force-app/main/default/objects/&lt;ObjectName&gt;/fields/</code></pre>
+                <p class="small mb-1"><strong>② Deploy via Salesforce CLI:</strong></p>
+                <pre class="code-block mb-3"><code>sf project deploy start --source-dir force-app --target-org &lt;your-org-alias&gt;</code></pre>
+                <div class="alert alert-info mt-3 mb-0 p-2">
+                  <small>
+                    <i class="bi bi-info-circle-fill"></i>
+                    <strong>Easy way (VS Code):</strong> Right-click the folder/file → <em>Deploy Source to Org</em>
+                  </small>
+                </div>
+              </div>
+            </div>
+
+            <!-- Activity Log for CSV -->
+            <label for="logCsv" class="form-label small mb-1">
+              <i class="bi bi-terminal"></i> Activity Log
+            </label>
+            <textarea class="form-control log-area" readonly placeholder="Logs will appear here..." id="logCsv" style="height: 140px;"></textarea>
+
+          </div>
+          <!-- /right col -->
+
         </div>
       </div>
+      <!-- /uploadCsvPane -->
+
     </div>
+    <!-- /mainMethodContent -->
 
     <!-- FAQ -->
     <section class="mt-5" id="faq">
@@ -572,14 +1135,13 @@
         <div class="accordion-item">
           <h3 class="accordion-header">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
-              What does the Salesforce Bulk Field XML Generator do?
+              Which input method should I use — Build Fields or Upload CSV?
             </button>
           </h3>
           <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
             <div class="accordion-body">
-              It converts a CSV of field definitions into Salesforce CustomField metadata files
-              (<code>.field-meta.xml</code>) organized into object-based folders, so you can deploy many fields at
-              once instead of creating them one by one in Setup.
+              Use <strong>Build Fields</strong> when you want to create a handful of fields interactively — the guided form prevents mistakes and you don't need to prepare a spreadsheet.
+              Use <strong>Upload CSV</strong> when you have dozens (or hundreds) of fields already defined in a spreadsheet, or when you're migrating fields between orgs and have a list ready to go.
             </div>
           </div>
         </div>
@@ -587,10 +1149,23 @@
         <div class="accordion-item">
           <h3 class="accordion-header">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
-              Is the tool free to use?
+              What does the Salesforce Bulk Field XML Generator do?
             </button>
           </h3>
           <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              It generates Salesforce CustomField metadata files (<code>.field-meta.xml</code>) organized into object-based folders — ready to deploy with the Salesforce CLI or VS Code Salesforce extension. You can build fields one at a time with the form builder, or generate all fields from a CSV in one click.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h3 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+              Is the tool free to use?
+            </button>
+          </h3>
+          <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
             <div class="accordion-body">
               Yes, it is completely free. There is no signup and no paid tier.
             </div>
@@ -599,29 +1174,13 @@
 
         <div class="accordion-item">
           <h3 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
-              Is my CSV data uploaded anywhere?
-            </button>
-          </h3>
-          <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-              No. The generator runs entirely in your browser. Your CSV is parsed locally and the generated XML
-              files never leave your machine.
-            </div>
-          </div>
-        </div>
-
-        <div class="accordion-item">
-          <h3 class="accordion-header">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
-              Which Salesforce field types are supported?
+              Is my data uploaded anywhere?
             </button>
           </h3>
           <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
             <div class="accordion-body">
-              The generator supports Text, Text Area (Long), Number, Currency, Percent, Checkbox, Picklist,
-              Lookup, Master-Detail, and other standard CustomField types. See the sample CSV template for the
-              exact column format per type.
+              No. Everything runs entirely in your browser. Whether you use the form builder or upload a CSV, your data is parsed locally and the generated XML files never leave your machine.
             </div>
           </div>
         </div>
@@ -629,10 +1188,49 @@
         <div class="accordion-item">
           <h3 class="accordion-header">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
-              How do I deploy the generated .field-meta.xml files to Salesforce?
+              Which Salesforce field types are supported?
             </button>
           </h3>
           <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              <p class="mb-2">All 23 standard Salesforce CustomField types are supported:</p>
+              <div class="row g-1" style="font-size:0.85rem;">
+                <div class="col-6 col-md-4"><span class="badge bg-secondary me-1">text</span> Text</div>
+                <div class="col-6 col-md-4"><span class="badge bg-secondary me-1">textarea</span> Text Area</div>
+                <div class="col-6 col-md-4"><span class="badge bg-secondary me-1">longtextarea</span> Long Text Area</div>
+                <div class="col-6 col-md-4"><span class="badge bg-secondary me-1">richtextarea</span> Rich Text Area</div>
+                <div class="col-6 col-md-4"><span class="badge bg-secondary me-1">number</span> Number</div>
+                <div class="col-6 col-md-4"><span class="badge bg-secondary me-1">currency</span> Currency</div>
+                <div class="col-6 col-md-4"><span class="badge bg-secondary me-1">percent</span> Percent</div>
+                <div class="col-6 col-md-4"><span class="badge bg-secondary me-1">checkbox</span> Checkbox</div>
+                <div class="col-6 col-md-4"><span class="badge bg-secondary me-1">date</span> Date</div>
+                <div class="col-6 col-md-4"><span class="badge bg-secondary me-1">datetime</span> Date/Time</div>
+                <div class="col-6 col-md-4"><span class="badge bg-secondary me-1">time</span> Time</div>
+                <div class="col-6 col-md-4"><span class="badge bg-secondary me-1">email</span> Email</div>
+                <div class="col-6 col-md-4"><span class="badge bg-secondary me-1">phone</span> Phone</div>
+                <div class="col-6 col-md-4"><span class="badge bg-secondary me-1">url</span> URL</div>
+                <div class="col-6 col-md-4"><span class="badge bg-secondary me-1">picklist</span> Picklist</div>
+                <div class="col-6 col-md-4"><span class="badge bg-secondary me-1">multipicklist</span> Multi-Select Picklist</div>
+                <div class="col-6 col-md-4"><span class="badge bg-secondary me-1">lookup</span> Lookup</div>
+                <div class="col-6 col-md-4"><span class="badge bg-secondary me-1">masterdetail</span> Master-Detail</div>
+                <div class="col-6 col-md-4"><span class="badge bg-secondary me-1">autonumber</span> Auto Number</div>
+                <div class="col-6 col-md-4"><span class="badge bg-secondary me-1">formula</span> Formula</div>
+                <div class="col-6 col-md-4"><span class="badge bg-secondary me-1">rollup</span> Roll-Up Summary</div>
+                <div class="col-6 col-md-4"><span class="badge bg-secondary me-1">geolocation</span> Geolocation</div>
+                <div class="col-6 col-md-4"><span class="badge bg-secondary me-1">encryptedtext</span> Encrypted Text</div>
+              </div>
+              <p class="mt-2 mb-0 small text-secondary">In the Build Fields tab, select the type from the dropdown. In the CSV tab, use the exact <code>Type</code> value shown in the badge above.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h3 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq6">
+              How do I deploy the generated .field-meta.xml files to Salesforce?
+            </button>
+          </h3>
+          <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
             <div class="accordion-body">
               Place each generated file in
               <code>force-app/main/default/objects/&lt;ObjectName&gt;/fields/</code>
@@ -645,29 +1243,26 @@
 
         <div class="accordion-item">
           <h3 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq6">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq7">
               Can I use it for production org deployments?
             </button>
           </h3>
-          <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div id="faq7" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
             <div class="accordion-body">
-              Yes. The generated XML is the same metadata format Salesforce uses internally, so it works with
-              sandbox, scratch org, and production deployments. For production, deploy via a sandbox first and
-              run change-set validation as you normally would.
+              Yes. The generated XML is the same metadata format Salesforce uses internally, so it works with sandbox, scratch org, and production deployments. For production, deploy via a sandbox first and run change-set validation as you normally would.
             </div>
           </div>
         </div>
 
         <div class="accordion-item">
           <h3 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq7">
-              What happens if a column does not apply to a field type?
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq8">
+              What happens if a CSV column does not apply to a field type?
             </button>
           </h3>
-          <div id="faq7" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div id="faq8" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
             <div class="accordion-body">
-              Leave it blank. The generator only reads the columns required by each field <code>Type</code> and
-              ignores the rest, so unused cells will not cause errors.
+              Leave it blank. The generator only reads the columns required by each field <code>Type</code> and ignores the rest, so unused cells will not cause errors.
             </div>
           </div>
         </div>
@@ -704,7 +1299,7 @@
 
   <!-- Scripts -->
   <script defer src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
-  <script defer src="/salesforce_bulk_field_creation_metadata_generator/assets/js/scripts.js"></script>
+  <script defer src="assets/js/scripts.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
           integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
           crossorigin="anonymous"></script>

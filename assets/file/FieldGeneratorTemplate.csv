@@ -1,1 +1,7 @@
-﻿FieldLabel,FieldName,Type,Length,Precision,Scale,ObjectName,PicklistValues,ReferenceTo,ChildRelationshipName,Description
+FieldLabel,FieldName,Type,ObjectName,Length,Precision,Scale,VisibleLines,DefaultValue,Required,Unique,ExternalId,CaseSensitive,PicklistValues,ReferenceTo,RelationshipLabel,ChildRelationshipName,DeleteConstraint,DisplayFormat,StartingNumber,Formula,FormulaReturnType,FormulaTreatBlanksAs,SummaryOperation,SummaryForeignKey,SummarizedField,DisplayLocationInDecimal,MaskType,MaskChar,Description
+Work Email,Work_Email__c,email,Contact,,,,,,,true,true,,,,,,,,,,,,,,,,,,Work email address
+Status,Status__c,picklist,Account,,,,,,,,,,"Active,Inactive,Pending",,,,,,,,,,,,,,,Account status
+Account Number,Account_Number__c,autonumber,Account,,,,,,,,,,,,,,,"ACC-{00000}",1,,,,,,,,,Auto-numbered account ID
+Full Name,Full_Name__c,formula,Contact,,,,,,,,,,,,,,,,,"FirstName + ' ' + LastName",text,BlankAsBlank,,,,,,Full name formula
+Discount Amt,Discount_Amt__c,formula,Opportunity,,18,2,,,,,,,,,,,,,,"Amount * Discount__c / 100",currency,BlankAsZero,,,,,,Discount amount formula
+Total Revenue,Total_Revenue__c,rollup,Account,,,,,,,,,,,,,,,,,,,,,SUM,Opportunity.AccountId,Opportunity.Amount,,,Total revenue roll-up

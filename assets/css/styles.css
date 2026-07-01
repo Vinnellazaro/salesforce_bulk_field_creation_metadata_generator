@@ -260,6 +260,8 @@ body {
    ============================================== */
 #mainMethodTabs {
   border-bottom-color: var(--card-border);
+  position: relative;
+  top: 15px;
 }
 #mainMethodTabs .nav-link {
   color: var(--text-color);
